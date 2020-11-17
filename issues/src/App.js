@@ -1,9 +1,10 @@
 import { Link, Route } from 'react-router-dom';
 import './App.css';
 import Login from './components/registration/Login';
-import Posts from './components/Posts';
-import UserProfile from './components/UserProfile';
+import Posts from './components/posts/Posts';
+import UserProfile from './components/posts/UserProfile';
 import PrivateRoute from './components/utils/PrivateRoute';
+import SignUp from './components/registration/SignUp';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Link to="/user/:id" >My Profile</Link>
 
       <Route path="/login" component={Login} />
+      <Route path="/signUp" component={SignUp} />
       <PrivateRoute path="/posts" component={Posts} />
       <PrivateRoute path="/user/:id" component={UserProfile} />
     </div>
