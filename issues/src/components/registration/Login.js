@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { logUser } from "../redux/actions";
 
-const LogIn = (props) => {
+const Login = () => {
 
   const [ loginData, setLoginData ] = useState({
     email: "",
