@@ -16,9 +16,9 @@ export const fetchData = () => (dispatch)=>{
         .catch(err => console.dir(err))
 }
 
-export const addData = (id, data) => (dispatch) => {
+export const addData = (data) => (dispatch) => {
     axiosWithAuth()
-        .post(`/posts/${id}`, data)
+        .post(`/posts/1`, data)
         .then(res => {
             console.log(res.data)
             dispatch({type: ADD_POSTS, payload: res.data})
