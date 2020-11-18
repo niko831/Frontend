@@ -1,37 +1,67 @@
-import Axios from 'axios';
-import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import React from "react";
+import { connect } from 'react-redux';
+import { signUser } from '../redux/actions';
 
-const SignUp = () => {
-    // const { register, handleSubmit, errors } = useForm();
-	const [redirect, setRedirect] = useState(false);
 
-	const onSubmit = (data) => {
-		console.log(data);
-		Axios.post("/auth/signup", data)
-			.then((response) => {
-				console.log(response);
-                console.log(response.status);
-                setRedirect(true);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	};
+const SignUp = (props) => {
 
-    if (redirect) {
-		return <Redirect to="/login" />;
-	} 
+    const [ signData, setSignData ] = useState({
+    email: "",
+    password: "",
+    });
 
-    return(
-        <div>
-            <form onSubmit={()=>onSubmit()} >
-                <input type="text" name="username" value="" onChange={()=>{}} />
-                <input type="password" name="password" value="" onChange={()=>{}} />
-                <input type="submit" value="Sign Up" />
-            </form>
-        </div>
-    )
-}
+    // const [ signErrors, setSignErrors ] = useState({
+    // email: "",
+    // password: "",
+    // });
 
-export default SignUp
+  const handleSignChanges = e => {
+    const signCredentials = {
+      ...signData,
+      [e.target.name]: e.target.value
+    };
+    setSignData(signCredentials);
+  };
+
+  const signSubmit = e => {
+    e.preventDefault();
+    props.signUser(signData)
+        setSignData({
+          email: "",
+          password: "",
+        });
+  };
+
+  return (
+    <div className="signForm">
+        <form onSubmit={signSubmit}>
+            <input
+                name="email"
+                type="email"
+                placeholder="Email"
+                value={signData.email}
+                onChange={handleSignChanges}
+            />
+            {/* <br /> */}
+            {/* {formError.email.length > 0 ? (
+                <p className="error">{formError.email}</p>
+            ) : null} */}
+            <input
+                name="password"
+                type="password"
+                placeholder="Enter your Password"
+                value={signData.password}
+                onChange={handleSignChanges}
+            />
+            {/* <br />
+            {formError.password.length > 0 ? (
+                <p className="error">{formError.password}</p>
+            ) : null} */}
+            <br />
+            <button>Submit</button>
+        </form>
+    </div>
+  );
+};
+
+export default connect(null, { signUser })(SignUp);
