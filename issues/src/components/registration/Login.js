@@ -1,49 +1,67 @@
 import React from 'react';
-
-const initialState = {
-    username: "",
-    password: "",
-}
-
-const initialDisabled = true
+import { connect } from 'react-redux';
+import { logUser } from "../redux/actions";
 
 const Login = () => {
-	const history = useHistory();
 
-    const [credentials, setCredentials] = useState(initialState);
-    const [credentialErrors, setCredentialErrors] = useState(initialState)
-    const [disabled, setDisabled] = useState(initialDisabled)
+  const [ loginData, setLoginData ] = useState({
+    email: "",
+    password: "",
+  });
 
+//   const [ logErrors, setLogErrors ] = useState({
+//     email: "",
+//     password: "",
+//   });
 
-     const login = e => {
-       e.preventDefault();
-       axios.post('/auth/login', `grant_type=password&username=${credentials.username}&password=${credentials.password}`, {
-         headers: {
-           // btoa is converting our client id/client secret into base64
-           Authorization: `Basic ${btoa('lambda-client:lambda-secret')}`,
-           'Content-Type': 'application/x-www-form-urlencoded'
-         }
-       })
-       .then(res => {
-         console.log(res.data)
-         localStorage.setItem('token', res.data.access_token);
-         history.push('/item');
-       })
-       setCredentials(initialValues)
-     }
-     const inputChange = (name, value) => {
-         validate(name, value)
-         setCredentials({
-             ...credentials, [name]: value
-         })
-     }
-    return(
-        <div>
-            <form>
+  const handleLogChanges = e => {
+    const logCredentials = {
+      ...loginData,
+      [e.target.name]: e.target.value
+    };
+    setLoginData(logCredentials);
+  };
 
-            </form>
-        </div>
-    )
-}
+  const loginSubmit = e => {
+    e.preventDefault();
+    props.logUser(loginData)
+        setLoginData({
+          email: "",
+          password: "",
+        });
+  };
 
-export default Login
+  return (
+    <div className="loginForm">
+        <form onSubmit={loginSubmit}>
+            <input
+                name="email"
+                type="email"
+                placeholder="Email"
+                value={loginData.email}
+                onChange={handleLogChanges}
+            />
+            {/* <br />
+            {logErrors.username.length > 0 ? (
+                <p className="error">{logErrors.email}</p>
+            ) : null}
+            <br /> */}
+            <input
+                name="password"
+                type="password"
+                placeholder="Enter your Password"
+                value={loginData.password}
+                onChange={handleLogChanges}
+            />
+            {/* <br />
+            {logErrors.password.length > 0 ? (
+                <p className="error">{logErrors.password}</p>
+            ) : null} */}
+            <br />
+            <button>Login</button>
+        </form>
+    </div>
+  );
+};
+
+export default connect(null, { logUser })(LogIn);
