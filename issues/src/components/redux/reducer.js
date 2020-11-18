@@ -1,13 +1,12 @@
-import { FETCH_DATA, DATA_FAIL } from "./actions";
+import { ADD_POSTS, DELETE_POST, EDIT_POST, FETCH_DATA } from "./actions"
 
-import jwt_decode from 'jwt-decode';
-const token = localStorage.getItem('token')
-const id = token ? jwt_decode(token).subject : null
+// import jwt_decode from 'jwt-decode';
+// const token = localStorage.getItem('token')
+// const id = token ? jwt_decode(token).subject : null
 
 const initialState = {
     posts: [],
-    userId: id,
-    error: 'Error loading'
+    post: "",
 }
 
 export default function reducer(state=initialState, action){
@@ -17,10 +16,21 @@ export default function reducer(state=initialState, action){
                 ...state,
                 posts: action.payload,
             }
-            case DATA_FAIL:
-            return {
+        case ADD_POSTS:
+            return{
                 ...state,
-                error: action.payload
+                posts: action.payload,
+                creatingPost: false,
+            }
+        case EDIT_POST:
+            return{
+                ...state,
+                posts: action.payload,
+                editing: false,
+            }
+        case DELETE_POST:
+            return{
+                ...state,
             }
         default:
             return state
