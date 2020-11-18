@@ -17,9 +17,6 @@ export const fetchData = () => (dispatch)=>{
         .catch(err => console.dir(err))
 }
 
-<<<<<<< HEAD
-export const addData = (data) => (dispatch) => {
-=======
 export const signUser = (userCreds) => (dispatch) => {
     dispatch({ type: DATA_LOADING })
     axios
@@ -51,7 +48,6 @@ export const logUser = (userCreds) => (dispatch) => {
 }
 
 export const addData = (id, data) => (dispatch) => {
->>>>>>> 0705deacf7b1ef422b91dad3e2603129266ddda4
     axiosWithAuth()
         .post(`/posts/1`, data)
         .then(res => {
