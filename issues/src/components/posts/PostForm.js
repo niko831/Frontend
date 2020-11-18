@@ -5,19 +5,21 @@ import { addData, editData } from '../redux/actions';
 const PostForm = (props)=>{
     const [post, setPost] = useState( props.editing ? props.post?.post : "")
     
-    console.log(props.editing)
+    console.log(props.post?.id)
     console.log(props.post?.post)
     const submitPost = (e) => {
         e.preventDefault()
         
         // debugger
         if(!props.editing){
-            console.log(props.post)
+            // console.log(props.post)
             props.addData(post)
+            console.log("Post to add =======>",post)
         }
         else{
-            console.log(post)
-            props.editData(props.post.user_id, post)
+            console.log("Edit post data",post)
+            console.log("Edit props.post before edit",props.post)
+            props.editData(props.post.id, post)
         }
     }
 
