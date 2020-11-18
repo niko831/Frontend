@@ -7,7 +7,6 @@ import { ADD_POSTS, DELETE_POST, EDIT_POST, FETCH_DATA } from "./actions"
 const initialState = {
     posts: [],
     post: "",
-    
 }
 
 export default function reducer(state=initialState, action){
