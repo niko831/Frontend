@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { logUser } from "../redux/actions";
 
-const Login = () => {
+const Login = (props) => {
 
   const [ loginData, setLoginData ] = useState({
     email: "",
@@ -64,4 +64,4 @@ const Login = () => {
   );
 };
 
-export default connect(null, { logUser })(LogIn);
+export default connect(null, { logUser })(Login);
