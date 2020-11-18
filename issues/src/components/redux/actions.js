@@ -22,6 +22,7 @@ export const addData = (id, data) => (dispatch) => {
         .then(res => {
             console.log(res.data)
             dispatch({type: ADD_POSTS, payload: res.data})
+            window.location.reload()
         })
         .catch(err => console.dir(err))
 }
@@ -32,17 +33,18 @@ export const editData = (id, data) => (dispatch) => {
         .then(res => {
             console.log(res.data)
             dispatch({type: EDIT_POST, payload: res.data})
+            window.location.reload()
         })
         .catch(err => console.dir(err))
 }
 
 export const deleteData = (id) => (dispatch) => {
     axiosWithAuth()
-            .delete(`/posts/${id}`)
-            .then(res => {
-                console.log(res)
-                dispatch({type: DELETE_POST})
-                window.location.reload()
-            })
-            .catch(err => console.dir(err))
+        .delete(`/posts/${id}`)
+        .then(res => {
+            console.log(res)
+            dispatch({type: DELETE_POST})
+            window.location.reload()
+        })
+        .catch(err => console.dir(err))
 }

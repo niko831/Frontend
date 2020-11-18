@@ -1,11 +1,13 @@
 import { ADD_POSTS, DELETE_POST, EDIT_POST, FETCH_DATA } from "./actions"
 
+// import jwt_decode from 'jwt-decode';
+// const token = localStorage.getItem('token')
+// const id = token ? jwt_decode(token).subject : null
+
 const initialState = {
     posts: [],
     post: "",
-    user: {
-        userId: ""
-    }
+    
 }
 
 export default function reducer(state=initialState, action){

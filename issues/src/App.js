@@ -14,8 +14,8 @@ function App() {
       <Link to="/posts" >Issues</Link>
       <Link to="/user/:id" >My Profile</Link>
 
-      <Route path="/login" component={Login} />
-      <Route path="/signUp" component={SignUp} />
+      {/* <Route path="/login" component={Login} />
+      <Route path="/signUp" component={SignUp} /> */}
       <PrivateRoute path="/posts" component={Posts} />
       <PrivateRoute path="/user/:id" component={UserProfile} />
     </div>
