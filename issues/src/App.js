@@ -5,8 +5,9 @@ import Posts from './components/posts/Posts';
 import UserProfile from './components/posts/UserProfile';
 import PrivateRoute from './components/utils/PrivateRoute';
 import SignUp from './components/registration/SignUp';
+import { connect } from 'react-redux';
 
-function App() {
+function App({id}) {
   return (
     <div className="App">
       <Link to="/login" >Login</Link>
@@ -22,4 +23,10 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) =>{
+  return{
+    id: state.userId,
+  }
+}
+
+export default connect(mapStateToProps, null) (App);
