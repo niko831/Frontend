@@ -1,38 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { PostsContainer } from '../../muiThemes';
 import { fetchData } from '../redux/actions';
 import Post from './Post';
 import PostForm from './PostForm';
 
 const Posts = (props) => {
+    // Determines if the form post is active
     const [creatingPost, setCreactingPost] = useState(false)
     console.log(props.posts)
 
+    // Used to re-render the data when a new item is created, edited, or deleted
     useEffect(()=>{
         props.fetchData()
     }, [props.posts.length])
 
 
     return(
-        <div>
+        <PostsContainer>
             <h1>Community Posts</h1>
 
-            <div style={{display:`${!creatingPost ? "none" : "block" }`, borderTop:"1px solid black", borderBottom:"1px solid black", margin:"2% 0"}} >
-
+            {/* Toggled form. Visibilty is controlled by state and button click */}
+            <div style={{
+                    display:`${!creatingPost ? "none" : "block" }`,
+                    borderTop:"3px solid black",
+                    borderBottom:"3px solid black",
+                    margin:"2% 0",
+                    padding: "1%",
+                    width: "86%",
+                    backgroundColor: "white",
+                }} >
                 <PostForm/>
             </div>
+
+            {/* All posts are shown here. If no posts are present, then the first condition renders. */}
             {
                 !props.posts
                 ? (
                     <div>
                         <h2>Looks like no has any issues to report...yet. Lets change that</h2>
 
-                        <button onClick={()=>setCreactingPost(!creatingPost)} >{!creatingPost ? "Post an Issue" : "Cancel"}</button>
+                    {/* The button determines if the form is active and visible. It also determines the text inside the button */}
+                        <button onClick={()=>setCreactingPost(!creatingPost)} >
+                            {!creatingPost ? "Post an Issue" : "Cancel"}
+                        </button>
                     </div>
                 )
                 : (
                     <div>
-                        <button onClick={()=>setCreactingPost(!creatingPost)} >{!creatingPost ? "Post an Issue" : "Cancel"}</button>
+                        <button onClick={()=>setCreactingPost(!creatingPost)} >
+                            {!creatingPost ? "Post an Issue" : "Cancel"}
+                        </button>
 
                         {props.posts?.map(post=>(
                         <Post key={post.id} post={post} />
@@ -40,7 +58,7 @@ const Posts = (props) => {
                     </div>
                 )
             }
-        </div>
+        </PostsContainer>
     )
 }
 
