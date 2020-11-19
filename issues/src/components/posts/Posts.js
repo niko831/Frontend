@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { PostsContainer } from '../../muiThemes';
 import { fetchData } from '../redux/actions';
 import Post from './Post';
 import PostForm from './PostForm';
@@ -16,15 +17,18 @@ const Posts = (props) => {
 
 
     return(
-        <div>
+        <PostsContainer>
             <h1>Community Posts</h1>
 
             {/* Toggled form. Visibilty is controlled by state and button click */}
             <div style={{
                     display:`${!creatingPost ? "none" : "block" }`,
-                    borderTop:"1px solid black",
-                    borderBottom:"1px solid black",
-                    margin:"2% 0", padding: "1%"
+                    borderTop:"3px solid black",
+                    borderBottom:"3px solid black",
+                    margin:"2% 0",
+                    padding: "1%",
+                    width: "86%",
+                    backgroundColor: "white",
                 }} >
                 <PostForm/>
             </div>
@@ -54,7 +58,7 @@ const Posts = (props) => {
                     </div>
                 )
             }
-        </div>
+        </PostsContainer>
     )
 }
 

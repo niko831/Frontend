@@ -80,8 +80,7 @@ export const deleteData = (id) => (dispatch) => {
     axios.delete(`https://bd-comake.herokuapp.com/api/posts/${id}`)
     .then(res => {
         console.log(res)
-        dispatch({type: DELETE_POST})
-        window.location.reload()
+        dispatch({type: DELETE_POST, payload: id})
     })
     .catch(err => console.dir(err))
 }

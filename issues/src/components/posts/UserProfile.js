@@ -3,6 +3,7 @@ import { fetchData } from '../redux/actions';
 import { connect } from 'react-redux';
 import Post from './Post';
 import PostForm from './PostForm';
+import { PostsContainer } from '../../muiThemes';
 
 const UserProfile = ({allPosts, userId, fetchData})=>{
     // Determines if the form post is active
@@ -14,7 +15,7 @@ const UserProfile = ({allPosts, userId, fetchData})=>{
     }, [allPosts.length])
 
     return(
-        <div>
+        <PostsContainer>
             <h2>User {userId}'s' Profile Page</h2>
 
             <h3>My Posts</h3>
@@ -23,7 +24,7 @@ const UserProfile = ({allPosts, userId, fetchData})=>{
             <button onClick={()=>setCreactingPost(!creatingPost)} >
                 {!creatingPost ? "Post an Issue" : "Cancel"}
             </button>
-            
+
             {/* Toggled form */}
             <div style={{
                     display:`${!creatingPost ? "none" : "block" }`,
@@ -44,7 +45,7 @@ const UserProfile = ({allPosts, userId, fetchData})=>{
                         <Post key={post.id} post={post} />
                 ))
             }
-        </div>
+        </PostsContainer>
     )
 }
 

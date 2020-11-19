@@ -1,3 +1,4 @@
+import TextField from '@material-ui/core/TextField';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { addData, editData } from '../redux/actions';
@@ -35,18 +36,13 @@ const PostForm = (props)=>{
             <form onSubmit={submitPost} >
 
                 {/* <input type="text" name="post" value={ post } onChange={(e)=>handleChange(e)} /> */}
-                <textarea name="post" rows="3" cols="100" value={ post } onChange={(e)=>handleChange(e)} />
+                <TextField name="post" fullWidth variant="outlined" rowsMax={3} value={ post } onChange={(e)=>handleChange(e)} />
 
-                <input type="submit" value={!props.editing ? "Post Issue" : "Edit Issue"} />
+                <input type="submit" value={!props.editing ? "Post Issue" : "Confirm Edit"} />
             </form>
         </div>
     )
 }
 
-// const mapStateToProps = (state)=>{
-//     return {
-//         editing: state.editing,
-//     }
-// }
 
 export default connect(null, {addData, editData})(PostForm)

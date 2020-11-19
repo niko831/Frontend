@@ -8,7 +8,7 @@ const initialState = {
     posts: [],
     post: "",
     error: "",
-    userId: 2,
+    userId: 1,
 }
 
 export default function reducer(state=initialState, action){
@@ -37,6 +37,9 @@ export default function reducer(state=initialState, action){
         case DELETE_POST:
             return{
                 ...state,
+                posts: state.posts.filter(post=>{
+                    return post.id !== action.payload
+                })
             }
 
         case DATA_FAIL:
