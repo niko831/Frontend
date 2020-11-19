@@ -7,10 +7,11 @@ export const ADD_POSTS = "ADD_POSTS"
 export const EDIT_POST = "EDIT_POST"
 export const DELETE_POST = "DELETE_POST"
 export const DATA_FAIL = "DATA_FAIL"
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 
 export const fetchData = () => (dispatch)=>{
-    // axiosWithAuth()
-    axios.get("https://bd-comake.herokuapp.com/api/posts")
+    axiosWithAuth()
+    .get("/posts")
     .then(res =>{
         console.log(res.data)
         dispatch({type: FETCH_DATA, payload: res.data})
@@ -19,29 +20,40 @@ export const fetchData = () => (dispatch)=>{
     .catch(err => console.dir(err))
 }
 
-export const signUser = (userCreds, id=1) => (dispatch) => {
-    dispatch({ type: DATA_LOADING })
+export const signUser = (userCreds) => (dispatch) => {
+    // dispatch({ type: DATA_LOADING })
+    console.log("Expected user data ====>", userCreds)
     axios
         .post("https://bd-comake.herokuapp.com/api/auth/register", userCreds)
         .then((res) => {
-            localStorage.setItem('token', res.data.token)
-            console.log(localStorage)
             console.log(res)
+            window.location = `/login`
+            // localStorage.setItem('token', res.data.token)
+            // console.log(localStorage)
         })
-        .then(() => window.location = `/user/${id}`)
+        // .then(() => window.location = `/posts`)
         .catch(err =>
             dispatch({type: DATA_FAIL, payload: err})
         )
 }
 
 export const logUser = (userCreds) => (dispatch) => {
-    dispatch({ type: DATA_LOADING })
-    axios
-        .post("https://bd-comake.herokuapp.com/api/auth/login", userCreds)
+    // dispatch({ type: DATA_LOADING })
+    console.log("Expected user data ====>", userCreds)
+    axiosWithAuth()
+        // .post("auth/login", `grant_type=password&email=${userCreds.email}&password=${userCreds.password}`,
+        // {
+        //   headers: {
+        //     Authorization: `Basic ${btoa('lambda:lambda')}`,
+        //     'Content-Type': 'application/x-www-form-urlencoded',
+        //   },
+        // })
+        .post("auth/login", userCreds)
         .then((res) => {
+            console.log(res)
             localStorage.setItem('token', res.data.token)
             console.log(localStorage)
-            console.log(res)
+            dispatch({type: LOGIN_SUCCESS, payload: res.data.id})
         })
         .then(() => window.location = `/posts`)
         .catch(err =>
@@ -50,9 +62,9 @@ export const logUser = (userCreds) => (dispatch) => {
 }
 
 export const addData = (data, id=1) => (dispatch) => {
-    // axiosWithAuth()
     console.log("Data recieved by the url ===>",data)
-    axios.post(`https://bd-comake.herokuapp.com/api/posts/${id}`, data)
+    axiosWithAuth()
+    .userCredspost(`/posts/${id}`, data)
     .then(res => {
             console.log(res)
             dispatch({type: ADD_POSTS, payload: res.data})
@@ -63,9 +75,9 @@ export const addData = (data, id=1) => (dispatch) => {
 }
 
 export const editData = (data, id) => (dispatch) => {
-    // axiosWithAuth()
     console.log("Data recieved by the url ===>",data)
-    axios.put(`https://bd-comake.herokuapp.com/api/posts/${id}`, data)
+    axiosWithAuth()
+    .put(`/posts/${id}`, data)
     .then(res => {
         console.log(res.data)
         dispatch({type: EDIT_POST, payload: {resData: res.data, postData: data}})
@@ -76,8 +88,8 @@ export const editData = (data, id) => (dispatch) => {
 }
 
 export const deleteData = (id) => (dispatch) => {
-    // axiosWithAuth()
-    axios.delete(`https://bd-comake.herokuapp.com/api/posts/${id}`)
+    axiosWithAuth()
+    .delete(`/posts/${id}`)
     .then(res => {
         console.log(res)
         dispatch({type: DELETE_POST, payload: id})
