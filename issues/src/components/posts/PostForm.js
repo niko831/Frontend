@@ -3,37 +3,39 @@ import { connect } from 'react-redux';
 import { addData, editData } from '../redux/actions';
 
 const PostForm = (props)=>{
+    // If a post is being edited then that particular post's information will be populate the form, otherwise, the form wil be empty.  
     const [post, setPost] = useState( props.editing ? props.post?.post : "")
     
-    console.log(props.post?.id)
-    console.log(props.post?.post)
+    console.log(post)
     const submitPost = (e) => {
         e.preventDefault()
         
-        // debugger
+        // Used to send the data to the server as an object
+        const newPost = {post: post}
+        
+        // If a post is not being edited, then a new post will be created instead.
         if(!props.editing){
-            // console.log(props.post)
-            props.addData(post)
             console.log("Post to add =======>",post)
+            props.addData(newPost)
+            setPost("")
         }
         else{
-            console.log("Edit post data",post)
-            console.log("Edit props.post before edit",props.post)
-            props.editData(props.post.id, post)
+            console.log("Edited post data =====>",post)
+            props.editData(newPost, props.post.id)
         }
     }
 
+    // Used to handle typing into the text field
     const handleChange = (e) => {
-        console.log(e.target.name)
-        console.log(e.target.value)
         setPost(e.target.value )
     }
 
     return(
         <div>
-            <form onSubmit={(e)=> submitPost(e)} >
+            <form onSubmit={submitPost} >
 
-                <input type="text" name="issue" value={ post } onChange={(e)=>handleChange(e)} />
+                {/* <input type="text" name="post" value={ post } onChange={(e)=>handleChange(e)} /> */}
+                <textarea name="post" rows="3" cols="100" value={ post } onChange={(e)=>handleChange(e)} />
 
                 <input type="submit" value={!props.editing ? "Post Issue" : "Edit Issue"} />
             </form>
