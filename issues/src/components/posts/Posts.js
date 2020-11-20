@@ -13,6 +13,7 @@ const Posts = (props) => {
     // Used to re-render the data when a new item is created, edited, or deleted
     useEffect(()=>{
         props.fetchData()
+        setCreactingPost(false)
     }, [props.posts.length])
 
 
@@ -30,12 +31,12 @@ const Posts = (props) => {
                     width: "86%",
                     backgroundColor: "white",
                 }} >
-                <PostForm/>
+                <PostForm setCreactingPost={setCreactingPost} />
             </div>
 
             {/* All posts are shown here. If no posts are present, then the first condition renders. */}
             {
-                !props.posts
+                !props.posts.length
                 ? (
                     <div>
                         <h2>Looks like no has any issues to report...yet. Lets change that</h2>

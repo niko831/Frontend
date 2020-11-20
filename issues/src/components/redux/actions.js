@@ -1,5 +1,6 @@
 import { axiosWithAuth } from "../utils/axiosWithAuth"
 import axios from "axios"
+import { Redirect } from "react-router-dom"
 
 export const FETCH_DATA = "FETCH_DATA"
 export const DATA_LOADING = "DATA_LOADING"
@@ -28,10 +29,7 @@ export const signUser = (userCreds) => (dispatch) => {
         .then((res) => {
             console.log(res)
             window.location = `/login`
-            // localStorage.setItem('token', res.data.token)
-            // console.log(localStorage)
         })
-        // .then(() => window.location = `/posts`)
         .catch(err =>
             dispatch({type: DATA_FAIL, payload: err})
         )
@@ -41,30 +39,24 @@ export const logUser = (userCreds) => (dispatch) => {
     // dispatch({ type: DATA_LOADING })
     console.log("Expected user data ====>", userCreds)
     axiosWithAuth()
-        // .post("auth/login", `grant_type=password&email=${userCreds.email}&password=${userCreds.password}`,
-        // {
-        //   headers: {
-        //     Authorization: `Basic ${btoa('lambda:lambda')}`,
-        //     'Content-Type': 'application/x-www-form-urlencoded',
-        //   },
-        // })
         .post("auth/login", userCreds)
         .then((res) => {
             console.log(res)
             localStorage.setItem('token', res.data.token)
+            localStorage.setItem('userId', res.data.id)
             console.log(localStorage)
             dispatch({type: LOGIN_SUCCESS, payload: res.data.id})
+            window.location = `/posts`
         })
-        .then(() => window.location = `/posts`)
         .catch(err =>
             dispatch({type: DATA_FAIL, payload: err})
         )
 }
 
-export const addData = (data, id=1) => (dispatch) => {
+export const addData = (data, id) => (dispatch) => {
     console.log("Data recieved by the url ===>",data)
     axiosWithAuth()
-    .userCredspost(`/posts/${id}`, data)
+    .post(`/posts/${id}`, data)
     .then(res => {
             console.log(res)
             dispatch({type: ADD_POSTS, payload: res.data})
