@@ -1,14 +1,15 @@
 import { ADD_POSTS, DATA_FAIL, DELETE_POST, EDIT_POST, FETCH_DATA, LOGIN_SUCCESS } from "./actions"
 import jwt_decode from 'jwt-decode';
 
-// const token = localStorage.getItem('token')
-// export const id = token ? jwt_decode(token)?.subject : null
+const token = localStorage.getItem('token')
+export const id = token ? jwt_decode(token)?.subject : null
 
 const initialState = {
     posts: [],
     post: "",
     error: "",
-    userId: "",
+    userId: id,
+    // userId: localStorage.getItem('id'),
 }
 
 export default function reducer(state=initialState, action){
@@ -45,7 +46,7 @@ export default function reducer(state=initialState, action){
         case LOGIN_SUCCESS:
             return{
                 ...state,
-                userId: action.payload
+                userId: state.userId = action.payload
             }
 
         case DATA_FAIL:

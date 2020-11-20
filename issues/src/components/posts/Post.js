@@ -27,7 +27,7 @@ const Post = (props)=>{
                 {
                     !editing 
                     ? `${post.post}` 
-                    : (<PostForm post={post} editing={editing} />) 
+                    : (<PostForm post={post} editing={editing} setEdit={setEdit} />) 
                 }
             </h3>
 

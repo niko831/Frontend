@@ -12,11 +12,12 @@ const UserProfile = ({allPosts, userId, fetchData})=>{
     // Used to re-render the data when a new item is created, edited, or deleted
     useEffect(()=>{
         fetchData()
+        setCreactingPost(false)
     }, [allPosts.length])
 
     return(
         <PostsContainer>
-            <h2>User {userId}'s' Profile Page</h2>
+            <h2>User {userId}'s Profile Page</h2>
 
             <h3>My Posts</h3>
 

@@ -17,12 +17,13 @@ const PostForm = (props)=>{
         // If a post is not being edited, then a new post will be created instead.
         if(!props.editing){
             console.log("Post to add =======>",post)
-            props.addData(newPost)
+            props.addData(newPost, props.id)
             setPost("")
         }
         else{
             console.log("Edited post data =====>",post)
             props.editData(newPost, props.post.id)
+            props.setEdit(false)
         }
     }
 
@@ -44,5 +45,10 @@ const PostForm = (props)=>{
     )
 }
 
+const mapStateToProps = (state) =>{
+  return{
+    id: state.userId,
+  }
+}
 
-export default connect(null, {addData, editData})(PostForm)
+export default connect(mapStateToProps, {addData, editData})(PostForm)
