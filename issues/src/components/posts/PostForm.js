@@ -1,7 +1,7 @@
 import TextField from '@material-ui/core/TextField';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { addData, editData } from '../redux/actions';
+import { addData, editData, fetchData } from '../redux/actions';
 
 const PostForm = (props)=>{
     // If a post is being edited then that particular post's information will be populate the form, otherwise, the form wil be empty.  
@@ -22,6 +22,7 @@ const PostForm = (props)=>{
         else{
             props.editData(newPost, props.post.id)
             props.setEdit(false)
+            props.fetchData()
         }
     }
 
@@ -49,4 +50,4 @@ const mapStateToProps = (state) =>{
   }
 }
 
-export default connect(mapStateToProps, {addData, editData})(PostForm)
+export default connect(mapStateToProps, {addData, editData, fetchData})(PostForm)

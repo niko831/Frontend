@@ -43,11 +43,11 @@ export default function reducer(state=initialState, action){
                 })
             }
 
-        case LOGIN_SUCCESS:
-            return{
-                ...state,
-                userId: state.userId = action.payload
-            }
+        // case LOGIN_SUCCESS:
+        //     return{
+        //         ...state,
+        //         userId: state.userId = action.payload
+        //     }
 
         case DATA_FAIL:
             return{

@@ -1,6 +1,5 @@
 import { axiosWithAuth } from "../utils/axiosWithAuth"
 import axios from "axios"
-import { Redirect } from "react-router-dom"
 
 export const FETCH_DATA = "FETCH_DATA"
 export const DATA_LOADING = "DATA_LOADING"
@@ -22,32 +21,30 @@ export const fetchData = () => (dispatch)=>{
 }
 
 export const signUser = (userCreds) => (dispatch) => {
-    // dispatch({ type: DATA_LOADING })
     console.log("Expected user data ====>", userCreds)
     axios
         .post("https://bd-comake.herokuapp.com/api/auth/register", userCreds)
         .then((res) => {
             console.log(res)
-            window.location = `/login`
+            localStorage.setItem('token', res.token)
+            // dispatch({type: LOGIN_SUCCESS, payload: res.data.id})
         })
+        .then(() => window.location = '/posts')
         .catch(err =>
             dispatch({type: DATA_FAIL, payload: err})
         )
 }
 
 export const logUser = (userCreds) => (dispatch) => {
-    // dispatch({ type: DATA_LOADING })
     console.log("Expected user data ====>", userCreds)
-    axiosWithAuth()
-        .post("auth/login", userCreds)
+    axios
+        .post("https://bd-comake.herokuapp.com/api/auth/login", userCreds)
         .then((res) => {
-            console.log(res)
             localStorage.setItem('token', res.data.token)
-            localStorage.setItem('userId', res.data.id)
-            console.log(localStorage)
-            dispatch({type: LOGIN_SUCCESS, payload: res.data.id})
-            window.location = `/posts`
+            // console.log(localStorage)
+            // dispatch({type: LOGIN_SUCCESS, payload: res.data.id})
         })
+        .then(() => window.location = '/posts')
         .catch(err =>
             dispatch({type: DATA_FAIL, payload: err})
         )
