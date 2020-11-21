@@ -16,22 +16,20 @@ function App({userId}) {
        If there is a token then local storage will be cleared and the user will be taken to the login screen. */}
       {
         !localStorage.getItem("token")
-        ? (<Link to="/login" >Login</Link>)
-        : (<Link onClick={()=>{localStorage.clear(); window.location.reload()}} to="/" >Logout</Link>)
-      }
-
-      <Link to="/signUp" >Sign Up</Link>
-
-      {/* These links will only render when a token is found in localStorage */}
-      {
-        localStorage.getItem("token")
         ? (
           <>
+            <Link to="/login" >Login</Link>
+            <Link to="/signUp" >Sign Up</Link>
+          </>
+        )
+        : (
+          <>
+            {/* These links will only render when a token is found in localStorage */}
+            <Link onClick={()=>{localStorage.clear(); window.location.reload()}} to="/" >Logout</Link>
             <Link to="/posts" >Issues</Link>
             <Link to={`/user/${userId}`} >My Profile</Link>
           </>
-        )
-        :( <></>)
+          )
       }
 
       <Route path="/login" component={Login} />
