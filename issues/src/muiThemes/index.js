@@ -25,6 +25,6 @@ export const PostsContainer = withStyles({
         alignItems: "center",
         justifyContent: "space-around",
         padding: "2%",
-        backgroundColor: "#546191"
+        backgroundColor: "#4D546191"
     }
 })(Box)

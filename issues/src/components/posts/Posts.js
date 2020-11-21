@@ -8,7 +8,6 @@ import PostForm from './PostForm';
 const Posts = (props) => {
     // Determines if the form post is active
     const [creatingPost, setCreactingPost] = useState(false)
-    console.log(props.posts)
 
     // Used to re-render the data when a new item is created, edited, or deleted
     useEffect(()=>{

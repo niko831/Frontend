@@ -1,4 +1,4 @@
-import { Link, Route} from 'react-router-dom';
+import { Link, Redirect, Route} from 'react-router-dom';
 import './App.css';
 import Login from './components/registration/Login';
 import Posts from './components/posts/Posts';
@@ -11,10 +11,26 @@ function App({userId}) {
 
   return (
     <div className="App">
-      <Link to="/login" >Login</Link>
-      <Link to="/signUp" >Sign Up</Link>
-      <Link to="/posts" >Issues</Link>
-      <Link to={`/user/${userId}`} >My Profile</Link>
+
+      {/* If there is no token in localStorage then the login link is rendered.
+       If there is a token then local storage will be cleared and the user will be taken to the login screen. */}
+      {
+        !localStorage.getItem("token")
+        ? (
+          <>
+            <Link to="/login" >Login</Link>
+            <Link to="/signUp" >Sign Up</Link>
+          </>
+        )
+        : (
+          <>
+            {/* These links will only render when a token is found in localStorage */}
+            <Link onClick={()=>{localStorage.clear(); window.location.reload()}} to="/" >Logout</Link>
+            <Link to="/posts" >Issues</Link>
+            <Link to={`/user/${userId}`} >My Profile</Link>
+          </>
+          )
+      }
 
       <Route path="/login" component={Login} />
       <Route path="/signUp" component={SignUp} />
