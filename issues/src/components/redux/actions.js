@@ -41,7 +41,6 @@ export const logUser = (userCreds) => (dispatch) => {
         .post("https://bd-comake.herokuapp.com/api/auth/login", userCreds)
         .then((res) => {
             localStorage.setItem('token', res.data.token)
-            // console.log(localStorage)
             // dispatch({type: LOGIN_SUCCESS, payload: res.data.id})
         })
         .then(() => window.location = '/posts')
