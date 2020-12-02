@@ -11,10 +11,10 @@ const Posts = (props) => {
 
     // Used to re-render the data when a new item is created, edited, or deleted
     useEffect(()=>{
-        fetchData()
+        props.fetchData() 
         setCreatingPost(false)
     }, [props.posts.length])
-
+    console.log(props)
 
     return(
         <PostsContainer>
@@ -52,8 +52,8 @@ const Posts = (props) => {
                             {!creatingPost ? "Post an Issue" : "Cancel"}
                         </button>
 
-                        {props.posts?.map(post=>(
-                        <Post key={post.id} post={post} />
+                        {props.posts?.map((post, index) =>(
+                        <Post key={index} post={post} />
                     ))}
                     </div>
                 )
@@ -62,9 +62,9 @@ const Posts = (props) => {
     )
 }
 
-const mapStateToProps = (state)=>{
+const mapStateToProps = state =>{
     return{
-        posts: state.posts
+        posts: state.posts,
     }
 }
 

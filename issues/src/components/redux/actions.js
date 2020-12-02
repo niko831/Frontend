@@ -11,12 +11,12 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 
 export const fetchData = () => (dispatch)=>{
     axiosWithAuth()
-    .get("/posts")
+    .get("/posts/")
     .then(res =>{
         console.log(res.data)
         dispatch({type: FETCH_DATA, payload: res.data})
     })
-    .catch(err => console.dir(err))
+    .catch(err => console.log(err))
 }
 
 export const signUser = (userCreds) => (dispatch) => {
@@ -28,7 +28,7 @@ export const signUser = (userCreds) => (dispatch) => {
         })
         .then(() => {
             axiosWithAuth()
-            .get('/posts')
+            .get('/posts/')
             .then(() => {
                 window.location = '/posts'
             })
@@ -47,7 +47,7 @@ export const logUser = (userCreds) => (dispatch) => {
         })
         .then(() => {
             axiosWithAuth()
-            .get('/posts')
+            .get('/posts/')
             .then(() => {
                 window.location = '/posts'
             })
@@ -63,7 +63,7 @@ export const addData = (data, id) => (dispatch) => {
     .post(`/posts/${id}`, data)
     .then(res => {
             console.log(res)
-            dispatch({type: ADD_POSTS, payload: res.data})
+            dispatch({type: FETCH_DATA, payload: res.data})
     })
     .catch(err =>
         dispatch({type: DATA_FAIL, payload: err})
@@ -75,8 +75,8 @@ export const editData = (data, id) => (dispatch) => {
     axiosWithAuth()
     .put(`/posts/${id}`, data)
     .then(res => {
-        console.log(res.data)
-        dispatch({type: EDIT_POST, payload: {resData: res.data, postData: data}})
+        console.log(res)
+        dispatch({type: EDIT_POST, payload: {resData: id, postData: data}})
     })
     .catch(err =>
             dispatch({type: DATA_FAIL, payload: err})

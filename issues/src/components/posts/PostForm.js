@@ -17,6 +17,7 @@ const PostForm = (props)=>{
         // If a post is not being edited, then a new post will be created instead.
         if(!props.editing){
             props.addData(newPost, props.id)
+            props.fetchData()
             setPost("")
         }
         else{
