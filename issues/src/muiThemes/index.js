@@ -1,5 +1,4 @@
 import { withStyles } from "@material-ui/styles";
-import { createMuiTheme } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 

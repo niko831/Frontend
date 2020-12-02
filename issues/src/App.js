@@ -1,4 +1,4 @@
-import { Link, Redirect, Route} from 'react-router-dom';
+import { Link, Route} from 'react-router-dom';
 import './App.css';
 import Login from './components/registration/Login';
 import Posts from './components/posts/Posts';

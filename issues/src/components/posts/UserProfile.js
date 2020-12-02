@@ -11,7 +11,6 @@ const UserProfile = ({allPosts, userId, fetchData})=>{
 
     // Used to re-render the data when a new item is created, edited, or deleted
     useEffect(()=>{
-        fetchData()
         setCreactingPost(false)
     }, [allPosts.length])
 
