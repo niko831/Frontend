@@ -11,9 +11,12 @@ const Posts = (props) => {
 
     // Used to re-render the data when a new item is created, edited, or deleted
     useEffect(()=>{
-        fetchData()
+        // eslint-disable-next-line
+        props.fetchData() 
         setCreatingPost(false)
     }, [props.posts.length])
+
+    console.log(props)
 
 
     return(

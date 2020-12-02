@@ -33,7 +33,9 @@ const Post = (props)=>{
 
             <div style={{display: "flex", flexFlow: "column wrap"}} >
                    {/* Determines if the post is being edited. Text changes based on editing state. */}
-            <IconButton onClick={()=>setEdit(!editing)} >
+            <IconButton onClick={()=>{
+                setEdit(!editing)
+                }} >
                 {!editing ? (<EditIcon/>) : (<UndoIcon/>)}
             </IconButton>
 
