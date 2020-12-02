@@ -23,7 +23,7 @@ export const fetchData = () => (dispatch)=>{
 export const signUser = (userCreds) => (dispatch) => {
     console.log("Expected user data ====>", userCreds)
     axios
-        .post("https://bd-comake.herokuapp.com/api/auth/register", userCreds)
+        .post("https://comakeredeploy.herokuapp.com/api/auth/register", userCreds)
         .then((res) => {
             console.log(res)
             localStorage.setItem('token', res.token)
@@ -38,7 +38,7 @@ export const signUser = (userCreds) => (dispatch) => {
 export const logUser = (userCreds) => (dispatch) => {
     console.log("Expected user data ====>", userCreds)
     axios
-        .post("https://bd-comake.herokuapp.com/api/auth/login", userCreds)
+        .post("https://comakeredeploy.herokuapp.com/api/auth/login", userCreds)
         .then((res) => {
             localStorage.setItem('token', res.data.token)
             // dispatch({type: LOGIN_SUCCESS, payload: res.data.id})
