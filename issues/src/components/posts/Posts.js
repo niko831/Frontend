@@ -11,7 +11,7 @@ const Posts = (props) => {
 
     // Used to re-render the data when a new item is created, edited, or deleted
     useEffect(()=>{
-        props.fetchData()
+        fetchData()
         setCreatingPost(false)
     }, [props.posts.length])
 
