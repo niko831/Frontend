@@ -14,7 +14,7 @@ const initialState = {
 export default function reducer(state=initialState, action){
     switch(action.type){
 
-        case FETCH_DATA:
+        case FETCH_DATA: 
             return{
                 ...state,
                 posts: action.payload,

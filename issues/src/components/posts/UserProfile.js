@@ -39,14 +39,14 @@ const UserProfile = (props)=>{
 
             {/* All posts that match the user's ID */}
             {
-                props.allPosts
-                    .filter(post=>{
+                props.allPosts.length > 0 ? 
+                    props.allPosts.filter(post=>{
                         return post.user_id === props.userId
                 })
                     .map(post=>(
                         <Post key={post.id} post={post} />
                 ))
-            }
+            : null }
         </PostsContainer>
     )
 }
