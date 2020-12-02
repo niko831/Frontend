@@ -16,7 +16,6 @@ export const fetchData = () => (dispatch)=>{
         console.log(res.data)
         dispatch({type: FETCH_DATA, payload: res.data})
     })
-    // Console.dir displays more detailed data...or at least that's what I've been told anyway
     .catch(err => console.dir(err))
 }
 
